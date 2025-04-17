@@ -15,18 +15,15 @@
     <button class="button" th:utext="#{home_page.addTrack}">Add Track</button>
     <button class="button logout" th:utext="#{home_page.logout}">Logout</button>
 </div>
-<div class="songs">
+<div class="songs" th:each="playlist : ${playlists}">
     <div class="song">
-        <span class="playlist-title">PlaylistTitle</span><br>
+        <span class="playlist-title" th:text="${playlist.name}">
+            <!-- Redirects to corresponding playlist page name -->
+            <a th:href="${playlist.name + '.html'}">
+                PlaylistTitle
+            </a>
+        </span><br>
     </div>
-    <div class="song"></div>
-    <div class="song"></div>
-    <div class="song"></div>
-    <div class="song"></div>
-    <div class="song"></div>
-    <div class="song"></div>
-    <div class="song"></div>
-    <div class="song"></div>
 </div>
 <div class="nav-bar">
     <button class="button" th:utext="#{home_page.previousPlaylists}">Previous Playlists</button>
