@@ -1,13 +1,13 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Register</title>
-    <link rel="stylesheet" href="CSS/index.css">
+    <link rel="stylesheet" href="CSS/index.css" th:href="@{/CSS/index.css}">
 </head>
 <body>
 <div class="login-panels">
-    <div class="welcome">Registration Page!</div>
+    <div class="welcome" th:text="#{register.welcome}">Registration Page!</div>
     <hr>
     <form action="Register" method="POST">
         <div class="credentials">
@@ -21,7 +21,7 @@
                    placeholder="Surname">
         </div>
         <div class="nav-bar">
-            <input type="submit" class="button" value="Create Account">
+            <input type="submit" class="button" value="Create Account" th:value="#{register.createAccount}">
         </div>
     </form>
 </div>

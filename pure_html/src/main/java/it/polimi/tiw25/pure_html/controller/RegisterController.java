@@ -8,8 +8,14 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.thymeleaf.TemplateEngine;
+import org.thymeleaf.context.WebContext;
+import org.thymeleaf.templatemode.TemplateMode;
+import org.thymeleaf.templateresolver.WebApplicationTemplateResolver;
+import org.thymeleaf.web.servlet.JakartaServletWebApplication;
 
 import java.io.IOException;
+import java.io.Serial;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -17,7 +23,9 @@ import java.sql.SQLException;
 
 @WebServlet("/Register")
 public class RegisterController extends HttpServlet {
+    @Serial
     private static final long serialVersionUID = 1L;
+    private TemplateEngine templateEngine;
     private Connection connection = null;
 
     @Override
@@ -37,11 +45,23 @@ public class RegisterController extends HttpServlet {
             e.printStackTrace();
             throw new UnavailableException("Couldn't get db connection");
         }
+
+        ServletContext servletContext = getServletContext();
+        JakartaServletWebApplication webApplication = JakartaServletWebApplication.buildApplication(servletContext);
+        WebApplicationTemplateResolver templateResolver = new WebApplicationTemplateResolver(webApplication);
+
+        templateResolver.setTemplateMode(TemplateMode.HTML);
+        this.templateEngine = new TemplateEngine();
+        this.templateEngine.setTemplateResolver(templateResolver);
+        templateResolver.setSuffix(".html");
     }
 
     @Override
     public void doGet(HttpServletRequest req, HttpServletResponse res) throws IOException {
+        JakartaServletWebApplication webApplication = JakartaServletWebApplication.buildApplication(getServletContext());
+        WebContext ctx = new WebContext(webApplication.buildExchange(req, res), req.getLocale());
 
+        templateEngine.process("register.html", ctx, res.getWriter());
     }
 
     @Override

@@ -1,25 +1,26 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" th:lang="${#locale}">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Login page</title>
-    <link rel="stylesheet" href="CSS/index.css">
+    <link rel="stylesheet" href="CSS/index.css" th:href="@{/CSS/index.css}">
+    <link rel="icon" type="image/x-icon" href="img/icon.ico" th:href="@{/img/icon.ico}">
 </head>
 <body>
 <div class="login-panels">
-    <div class="welcome" th:utext="#{index.welcome}">Welcome to the Playlist Manager!</div>
+    <div class="welcome" th:text="#{index.welcome}">Welcome to the Playlist Manager!</div>
     <hr>
-    <a href="register.html">
-        <button type="submit" class="button" th:utext="#{index.register}"> Register </button>
+    <a th:href="@{/Register}">
+        <button type="submit" class="button" th:text="#{index.register}">Register</button>
     </a>
     <form action="Login" method="POST">
-    <hr>
-    <div class="credentials">
-        <input class="text-field" type="text" id="nickname" name="nickname"
-               placeholder="Nickname"><br>
-        <input class="text-field" type="password" id="password" name="password"
-               placeholder="Password">
-    </div>
+        <hr>
+        <div class="credentials">
+            <input class="text-field" type="text" id="nickname" name="nickname"
+                   placeholder="Nickname"><br>
+            <input class="text-field" type="password" id="password" name="password"
+                   placeholder="Password">
+        </div>
         <div class="nav-bar">
             <input type="submit" class="button" value="Login">
         </div>
