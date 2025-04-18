@@ -13,7 +13,9 @@
     <button class="button" th:text="#{home_page.removePlaylist}">Remove Playlist</button>
     <button class="button" th:text="#{home_page.allSongs}">View All Songs</button>
     <button class="button" th:text="#{home_page.addTrack}">Add Track</button>
-    <button class="button logout" th:text="#{home_page.logout}">Logout</button>
+    <a th:href="@{/Logout}">
+        <button type="submit" class="button logout" th:text="#{home_page.logout}" th:action="@{/Logout}">Logout</button>
+    </a>
 </div>
 <div class="playlists" th:remove="all-but-first" th:each="playlist : ${playlists}">
     <!-- Redirects to corresponding playlist page name -->
