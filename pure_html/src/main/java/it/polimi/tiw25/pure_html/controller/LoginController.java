@@ -77,7 +77,7 @@ public class LoginController extends HttpServlet {
         }
 
         if (isPresent) {
-            res.sendRedirect(getServletContext().getContextPath() + "/home_page.html");
+            res.sendRedirect(getServletContext().getContextPath() + "/HomePage");
         } else {
             res.sendRedirect(getServletContext().getContextPath() + "/index.html");
         }
