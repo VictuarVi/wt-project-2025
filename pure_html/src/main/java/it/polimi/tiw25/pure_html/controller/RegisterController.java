@@ -1,6 +1,6 @@
 package it.polimi.tiw25.pure_html.controller;
 
-import it.polimi.tiw25.pure_html.Queries;
+import it.polimi.tiw25.pure_html.DAO.Queries;
 import jakarta.servlet.ServletContext;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.UnavailableException;

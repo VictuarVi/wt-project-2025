@@ -1,6 +1,7 @@
 package it.polimi.tiw25.pure_html.controller;
 
-import it.polimi.tiw25.pure_html.Queries;
+import it.polimi.tiw25.pure_html.DAO.UserDAO;
+import it.polimi.tiw25.pure_html.entities.User;
 import jakarta.servlet.ServletContext;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.UnavailableException;
@@ -16,7 +17,9 @@ import org.thymeleaf.web.servlet.JakartaServletWebApplication;
 
 import java.io.IOException;
 import java.io.Serial;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 
 @WebServlet("/Login") // access this controller via action="" on the forms
 public class LoginController extends HttpServlet {
@@ -69,36 +72,20 @@ public class LoginController extends HttpServlet {
         System.out.println(nickname);
         System.out.println(password);
 
-        boolean isPresent;
+        UserDAO userDAO = new UserDAO(connection);
+        User schrondingerUser = null;
         try {
-            isPresent = checkUser(nickname, password);
+            schrondingerUser = userDAO.checkUser(nickname, password);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
 
-        if (isPresent) {
+        req.getSession().setAttribute("user", schrondingerUser);
+
+        if (schrondingerUser != null) {
             res.sendRedirect(getServletContext().getContextPath() + "/HomePage");
         } else {
             res.sendRedirect(getServletContext().getContextPath() + "/index.html");
         }
-    }
-
-    /**
-     * Checks if user is in the database.
-     *
-     * @param nickname nickname to check
-     * @param password password to check
-     * @return true if the user has been added; false otherwise
-     * @throws SQLException
-     */
-    public boolean checkUser(String nickname, String password) throws SQLException {
-        PreparedStatement statement = connection.prepareStatement(Queries.CHECK_USER);
-
-        statement.setString(1, nickname);
-        statement.setString(2, password);
-
-        ResultSet result = statement.executeQuery();
-
-        return result.isBeforeFirst();
     }
 }

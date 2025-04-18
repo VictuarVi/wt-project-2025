@@ -1,4 +1,4 @@
-package it.polimi.tiw25.pure_html;
+package it.polimi.tiw25.pure_html.DAO;
 
 /**
  * Utility class to manage all queries from the same place.
