@@ -11,6 +11,15 @@ public class User {
     private String password;
 
     public User(int id, String nickname, String name, String surname, String password) {
+        this.id = id;
+        this.nickname = nickname;
+        this.name = name;
+        this.surname = surname;
+        this.password = password;
+    }
+
+    public User(String nickname) {
+        this.nickname = nickname;
     }
 
     public int getId() {

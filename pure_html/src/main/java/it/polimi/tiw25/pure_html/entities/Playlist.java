@@ -9,6 +9,13 @@ public class Playlist {
     private int creation_date;
     private User user;
 
+     public Playlist(int id, String title, int creation_date, User user) {
+        this.id = id;
+        this.title = title;
+        this.creation_date = creation_date;
+        this.user = user;
+    }
+
     public int getId() {
         return id;
     }
