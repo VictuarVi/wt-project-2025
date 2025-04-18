@@ -32,12 +32,12 @@ CREATE TABLE track
     year           year         not null,
     genre          varchar(16),
     path           varchar(16),
-#     image_checksum char(64)     not null default '0000000000000000000000000000000000000000000000000000000000000000' comment "SHA256 checksum",
-#     path_checksum  char(64)     not null default '0000000000000000000000000000000000000000000000000000000000000000' comment "SHA256 checksum",
+    image_checksum char(64)     not null default '0000000000000000000000000000000000000000000000000000000000000000' comment "SHA256 checksum",
+    path_checksum  char(64)     not null default '0000000000000000000000000000000000000000000000000000000000000000' comment "SHA256 checksum",
 
-    primary key (track_id)
-#     unique (image_checksum),
-#     unique (path_checksum),
+    primary key (track_id),
+    unique (image_checksum),
+    unique (path_checksum)
 #     check (genre in ('classical', 'rock', 'edm'))
 );
 
@@ -78,3 +78,51 @@ CREATE TABLE playlist_tracks
     foreign key (track_id) references track (track_id)
         ON DELETE CASCADE ON UPDATE CASCADE
 );
+
+# DATA LOADING FROM CSVs
+# user -> track -> user_tracks -> playlist  -> playlist_tracks
+
+LOAD DATA LOCAL INFILE 'db_data/user.csv'
+    INTO TABLE user
+    FIELDS TERMINATED BY ','
+    ENCLOSED BY ","
+    LINES TERMINATED BY '\n'
+    IGNORE 1 LINES
+    (@ignore, nickname, password, name, surname)
+;
+
+LOAD DATA LOCAL INFILE 'db_data/track.csv'
+    INTO TABLE track
+    FIELDS TERMINATED BY ','
+    ENCLOSED BY ","
+    LINES TERMINATED BY '\n'
+    IGNORE 1 LINES
+    (track_id, title, image_path, album_title, artist, year, genre, path, image_checksum, path_checksum)
+;
+
+LOAD DATA LOCAL INFILE 'db_data/user_tracks.csv'
+    INTO TABLE user_tracks
+    FIELDS TERMINATED BY ','
+    ENCLOSED BY ","
+    LINES TERMINATED BY '\n'
+    IGNORE 1 LINES
+    (nickname, track_id)
+;
+
+LOAD DATA LOCAL INFILE 'db_data/playlist.csv'
+    INTO TABLE playlist
+    FIELDS TERMINATED BY ','
+    ENCLOSED BY ","
+    LINES TERMINATED BY '\n'
+    IGNORE 1 LINES
+    (playlist_id, playlist_title, creation_date, nickname)
+;
+
+LOAD DATA LOCAL INFILE 'db_data/playlist_tracks.csv'
+    INTO TABLE playlist_tracks
+    FIELDS TERMINATED BY ','
+    ENCLOSED BY ","
+    LINES TERMINATED BY '\n'
+    IGNORE 1 LINES
+    (playlist_id, track_id, custom_order)
+;
