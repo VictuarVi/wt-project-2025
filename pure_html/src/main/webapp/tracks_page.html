@@ -1,17 +1,17 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" th:lang="${#locale}">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Home page</title>
-    <link rel="stylesheet" href="CSS/tracks_page.css">
+    <link rel="stylesheet" href="CSS/tracks_page.css" th:href="@{/CSS/tracks_page.css}">
 </head>
 <body>
 <div class="nav-bar">
-    <div class="label-title" th:utext="#{tracks_page.allTracks}">All Tracks</div>
+    <div class="label-title" th:text="#{tracks_page.allTracks}">All Tracks</div>
     <div class="spacer"></div>
-    <button class="button" th:utext="#{tracks_page.addTrack}">Add Track</button>
-    <button class="button" th:utext="#{tracks_page.removeTrack}">Remove Track</button>
-    <button class="button logout" th:utext="#{tracks_page.logout}">Logout</button>
+    <button class="button" th:text="#{tracks_page.addTrack}">Add Track</button>
+    <button class="button" th:text="#{tracks_page.removeTrack}">Remove Track</button>
+    <button class="button logout" th:text="#{tracks_page.logout}">Logout</button>
 </div>
 <div class="songs">
 <!-- L'utente qua vede TUTTI i suoi brani -->
@@ -29,11 +29,11 @@
     <div class="song"></div>
 </div>
 <div class="nav-bar">
-    <button class="button" th:utext="#{tracks_page.previousTracks}">Previous Tracks</button>
+    <button class="button" th:text="#{tracks_page.previousTracks}">Previous Tracks</button>
     <div class="spacer"></div>
     <button class="button">Home</button>
     <div class="spacer"></div>
-    <button class="button" th:utext="#{tracks_page.nextTracks}">Next Tracks</button>
+    <button class="button" th:text="#{tracks_page.nextTracks}">Next Tracks</button>
 </div>
 </body>
 </html>

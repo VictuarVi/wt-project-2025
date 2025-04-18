@@ -1,36 +1,36 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" th:lang="${#locale}">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Home page</title>
-    <link rel="stylesheet" href="CSS/home_page.css">
+    <link rel="stylesheet" href="CSS/home_page.css" th:href="@{/CSS/home_page.css}">
 </head>
 <body>
 <div class="nav-bar">
-    <div class="label-title" th:utext="#{home_page.allPlaylists}">All Playlists</div>
+    <div class="label-title" th:text="#{home_page.allPlaylists}">All Playlists</div>
     <div class="spacer"></div>
-    <button class="button" th:utext="#{home_page.addPlaylist}">Add Playlist</button>
-    <button class="button" th:utext="#{home_page.removePlaylist}">Remove Playlist</button>
-    <button class="button" th:utext="#{home_page.allSongs}">View All Songs</button>
-    <button class="button" th:utext="#{home_page.addTrack}">Add Track</button>
-    <button class="button logout" th:utext="#{home_page.logout}">Logout</button>
+    <button class="button" th:text="#{home_page.addPlaylist}">Add Playlist</button>
+    <button class="button" th:text="#{home_page.removePlaylist}">Remove Playlist</button>
+    <button class="button" th:text="#{home_page.allSongs}">View All Songs</button>
+    <button class="button" th:text="#{home_page.addTrack}">Add Track</button>
+    <button class="button logout" th:text="#{home_page.logout}">Logout</button>
 </div>
 <div class="songs" th:each="playlist : ${playlists}">
     <div class="song">
         <span class="playlist-title" th:text="${playlist.name}">
             <!-- Redirects to corresponding playlist page name -->
-            <a th:href="${playlist.name + '.html'}">
+            <a th:href="@{/Playlist}">
                 PlaylistTitle
             </a>
         </span><br>
     </div>
 </div>
 <div class="nav-bar">
-    <button class="button" th:utext="#{home_page.previousPlaylists}">Previous Playlists</button>
+    <button class="button" th:text="#{home_page.previousPlaylists}">Previous Playlists</button>
     <div class="spacer"></div>
     <button class="button">Home</button>
     <div class="spacer"></div>
-    <button class="button" th:utext="#{home_page.nextPlaylists}">Next Playlists</button>
+    <button class="button" th:text="#{home_page.nextPlaylists}">Next Playlists</button>
 </div>
 </body>
 </html>
