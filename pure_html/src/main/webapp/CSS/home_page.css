@@ -1,5 +1,5 @@
 body {
-    margin: 0;
+    margin: 1rem 0 0 0;
     padding: 0;
     line-height: 1.6;
     word-spacing: 1px;
@@ -10,7 +10,7 @@ body {
     height: 100vh;
 }
 
-.songs {
+.playlists {
     width: calc(100% - 4rem);
     margin: 0 2rem 0 2rem;
     display: grid;
@@ -21,17 +21,26 @@ body {
     padding: 1rem 0 1rem 0;
 }
 
-.song {
+.playlist {
+    display: flex;
+    align-items: end;
     height: 150px;
     background-color: rgba(152, 183, 255, 0.38);
     font-weight: 700;
     padding: 1rem;
     text-align: left;
-    align-content: end;
+    border: 2px solid #001a9f;
+    border-radius: 5px;
 }
 
 .playlist-title {
+    font-size: 1.2rem;
     color: #001a9f;
+    cursor: pointer;
+}
+
+.playlist-title:hover {
+    background-color: rgba(255, 152, 191, 0.38);
 }
 
 .album-title {
@@ -65,7 +74,7 @@ body {
     height: 3rem;
     border-radius: 6px;
     font-weight: bold;
-    vertical-align: middle;;
+    vertical-align: middle;
     margin: 0.5rem 0 0.5rem 0;
     padding: 1em;
 }

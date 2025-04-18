@@ -15,15 +15,30 @@
     <button class="button" th:text="#{home_page.addTrack}">Add Track</button>
     <button class="button logout" th:text="#{home_page.logout}">Logout</button>
 </div>
-<div class="songs" th:each="playlist : ${playlists}">
-    <div class="song">
-        <span class="playlist-title" th:text="${playlist.name}">
-            <!-- Redirects to corresponding playlist page name -->
-            <a th:href="@{/Playlist}">
-                PlaylistTitle
-            </a>
-        </span><br>
-    </div>
+<div class="playlists" th:remove="all-but-first" th:each="playlist : ${playlists}">
+    <!-- Redirects to corresponding playlist page name -->
+    <!-- No more than 5 per row -->
+    <button class="playlist playlist-title" type="submit" th:text="${playlist.title}" th:action="@{/Playlist}">
+        PlaylistTitle
+    </button>
+    <button class="playlist playlist-title" type="submit">
+        PlaylistTitle
+    </button>
+    <button class="playlist playlist-title" type="submit">
+        PlaylistTitle
+    </button>
+    <button class="playlist playlist-title" type="submit">
+        PlaylistTitle
+    </button>
+    <button class="playlist playlist-title" type="submit">
+        PlaylistTitle
+    </button>
+    <button class="playlist playlist-title" type="submit">
+        PlaylistTitle
+    </button>
+    <button class="playlist playlist-title" type="submit">
+        PlaylistTitle
+    </button>
 </div>
 <div class="nav-bar">
     <button class="button" th:text="#{home_page.previousPlaylists}">Previous Playlists</button>
