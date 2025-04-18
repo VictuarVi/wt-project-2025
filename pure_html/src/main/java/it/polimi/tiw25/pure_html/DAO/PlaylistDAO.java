@@ -100,7 +100,6 @@ public class PlaylistDAO {
     public void deletePlaylist(Playlist playlist) throws SQLException {
     }
 
-
     /**
      * Adds a new Track to the given Playlist.
      *

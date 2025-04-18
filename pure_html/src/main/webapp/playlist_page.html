@@ -7,7 +7,7 @@
 </head>
 <body>
 <div class="nav-bar">
-    <div class="label-title" th:text="${playlistTitle}">PlaylistName</div>
+    <div class="label-title" th:text="${playlistTitle}">Playlist Title</div>
     <div class="spacer"></div>
     <button class="button" th:text="#{playlist_page.addTrack}">Add Track</button>
     <button class="button" th:text="#{playlist_page.removeTrack}">Remove Track</button>
@@ -17,18 +17,36 @@
 </div>
 <div class="songs" th:remove="all-but-first" th:each="track : ${playlistTracks}">
     <!-- Five tracks per row of the corresponding playlist -->
-    <div class="song">
-        <span class="track-title" th:text="${track.title}">TitleTrack</span><br>
-        <span class="album-title" th:text="${track.album_title}">AlbumTitle</span>
-    </div>
-    <div class="song"></div>
-    <div class="song"></div>
-    <div class="song"></div>
-    <div class="song"></div>
-    <div class="song"></div>
-    <div class="song"></div>
-    <div class="song"></div>
-    <div class="song"></div>
+    <form action="Tracks" method="GET">
+        <button class="song-button" name="track_id" th:value="${track.path}">
+            <span class="track-title" th:text="${track.title}">TitleTrack</span><br/>
+            <span class="album-title" th:text="${track.album_title}">AlbumTitle</span>
+        </button>
+    </form>
+    <form action="Tracks" method="GET">
+        <button class="song-button" name="track_id" value="1">
+            <span class="track-title">TitleTrack</span><br/>
+            <span class="album-title">AlbumTitle</span>
+        </button>
+    </form>
+    <form action="Tracks" method="GET">
+        <button class="song-button" name="track_id" value="1">
+            <span class="track-title">TitleTrack</span><br/>
+            <span class="album-title">AlbumTitle</span>
+        </button>
+    </form>
+    <form action="Tracks" method="GET">
+        <button class="song-button" name="track_id" value="1">
+            <span class="track-title">TitleTrack</span><br/>
+            <span class="album-title">AlbumTitle</span>
+        </button>
+    </form>
+    <form action="Tracks" method="GET">
+        <button class="song-button" name="track_id" value="1">
+            <span class="track-title">TitleTrack</span><br/>
+            <span class="album-title">AlbumTitle</span>
+        </button>
+    </form>
 </div>
 <div class="nav-bar">
     <button class="button" th:text="#{playlist_page.previousTracks}">Previous Tracks</button>

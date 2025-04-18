@@ -22,19 +22,40 @@ body {
 }
 
 .song {
-    height: 150px;
     background-color: rgba(152, 183, 255, 0.38);
+    border-width: 0;
     font-weight: 700;
     padding: 1rem;
     text-align: left;
     align-content: end;
 }
 
+.song-button {
+    display: flex;
+    flex-wrap: wrap;
+    height: 150px;
+    width: 100%;
+    background-color: rgba(152, 183, 255, 0.38);
+    padding:1rem;
+    border-width: 0;
+    font-weight: 700;
+    font-size: 1rem;
+    text-align: left;
+    align-content: end;
+}
+
+.song-button:hover {
+    background-color: #59a7ff;
+    cursor: pointer;
+}
+
 .track-title {
+    width: 100%;
     color: #001a9f;
 }
 
 .album-title {
+    width: 100%;
     color: #050937;
 }
 

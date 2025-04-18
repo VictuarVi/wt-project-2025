@@ -10,6 +10,6 @@ public record Track(
         String album_title,
         String genre,
         String album_image_path,
-        String track_path
+        String path
 ) {
 }
