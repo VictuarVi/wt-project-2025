@@ -69,9 +69,6 @@ public class LoginController extends HttpServlet {
         String nickname = req.getParameter("nickname");
         String password = req.getParameter("password");
 
-        System.out.println(nickname);
-        System.out.println(password);
-
         UserDAO userDAO = new UserDAO(connection);
         User schrondingerUser = null;
         try {

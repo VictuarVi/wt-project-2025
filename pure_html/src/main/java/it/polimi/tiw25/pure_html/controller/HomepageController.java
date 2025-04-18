@@ -10,6 +10,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
 import org.thymeleaf.templatemode.TemplateMode;
@@ -61,7 +62,8 @@ public class HomepageController extends HttpServlet {
         JakartaServletWebApplication webApplication = JakartaServletWebApplication.buildApplication(getServletContext());
         WebContext ctx = new WebContext(webApplication.buildExchange(req, res), req.getLocale());
 
-        User user = (User) req.getAttribute("user");
+        HttpSession s = req.getSession();
+        User user = (User) s.getAttribute("user");
 
         PlaylistDAO playlistDAO = new PlaylistDAO(connection);
 
@@ -73,7 +75,7 @@ public class HomepageController extends HttpServlet {
         }
 
         ctx.setVariable("playlists", playlists);
-        templateEngine.process("index.html", ctx, res.getWriter());
+        templateEngine.process("home_page.html", ctx, res.getWriter());
     }
 
     @Override

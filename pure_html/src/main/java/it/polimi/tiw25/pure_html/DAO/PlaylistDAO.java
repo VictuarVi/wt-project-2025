@@ -28,15 +28,15 @@ public class PlaylistDAO {
     public List<Playlist> getUserPlaylists(User user) throws SQLException {
         List<Playlist> playlists = new ArrayList<>();
 
-        PreparedStatement preparedStatement = connection.prepareStatement(Queries.GET_USER_PLAYLISTS);
+        PreparedStatement preparedStatement = connection.prepareStatement("SELECT b.playlist_id, b.playlist_title,b.creation_date FROM user a NATURAL JOIN playlist b WHERE a.nickname = ?");
 
         preparedStatement.setString(1, user.nickname());
         ResultSet resultSet = preparedStatement.executeQuery();
 
         while (resultSet.next()) {
             Playlist playlist = new Playlist(
-                    resultSet.getString("title"),
-                    resultSet.getInt("creation_date"),
+                    resultSet.getString("playlist_title"),
+                    resultSet.getDate("creation_date"),
                     user
             );
             playlists.add(playlist);

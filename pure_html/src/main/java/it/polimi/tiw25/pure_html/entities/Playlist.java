@@ -5,7 +5,7 @@ package it.polimi.tiw25.pure_html.entities;
  */
 public record Playlist(
         String title,
-        int creation_date,
+        java.sql.Date creation_date,
         User user
 ) {
 }
