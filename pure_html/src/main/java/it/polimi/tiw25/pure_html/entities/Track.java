@@ -6,9 +6,10 @@ package it.polimi.tiw25.pure_html.entities;
 public record Track(
         String title,
         String artist,
+        java.sql.Date albumReleaseDate,
         String album_title,
-        int album_release_date,
-        int album_image_path,
-        int track_path
+        String genre,
+        String album_image_path,
+        String track_path
 ) {
 }

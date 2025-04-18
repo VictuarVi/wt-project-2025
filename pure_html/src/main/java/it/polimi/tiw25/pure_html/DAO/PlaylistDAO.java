@@ -28,7 +28,11 @@ public class PlaylistDAO {
     public List<Playlist> getUserPlaylists(User user) throws SQLException {
         List<Playlist> playlists = new ArrayList<>();
 
-        PreparedStatement preparedStatement = connection.prepareStatement("SELECT b.playlist_id, b.playlist_title,b.creation_date FROM user a NATURAL JOIN playlist b WHERE a.nickname = ?");
+        PreparedStatement preparedStatement = connection.prepareStatement("""
+                SELECT b.playlist_id, b.playlist_title,b.creation_date
+                FROM user a NATURAL JOIN playlist b
+                WHERE a.nickname = ?
+                """);
 
         preparedStatement.setString(1, user.nickname());
         ResultSet resultSet = preparedStatement.executeQuery();
@@ -43,6 +47,38 @@ public class PlaylistDAO {
         }
 
         return playlists;
+    }
+
+    public List<Track> getPlaylistTracks(String playlistTitle, User user) throws SQLException {
+        List<Track> tracks = new ArrayList<>();
+
+        PreparedStatement preparedStatement = connection.prepareStatement("""
+                 SELECT title, image_path, album_title, artist, year, genre, path
+                 FROM user a
+                     NATURAL JOIN playlist b
+                     NATURAL JOIN playlist_tracks c
+                     NATURAL JOIN track d
+                 WHERE a.nickname = ? AND b.playlist_title = ?
+                """);
+
+        preparedStatement.setString(1, user.nickname());
+        preparedStatement.setString(2, playlistTitle);
+        ResultSet resultSet = preparedStatement.executeQuery();
+
+        while (resultSet.next()) {
+            Track track = new Track(
+                    resultSet.getString("title"),
+                    resultSet.getString("artist"),
+                    resultSet.getDate("year"),
+                    resultSet.getString("album_title"),
+                    resultSet.getString("genre"),
+                    resultSet.getString("image_path"),
+                    resultSet.getString("path")
+            );
+            tracks.add(track);
+        }
+
+        return tracks;
     }
 
     /**

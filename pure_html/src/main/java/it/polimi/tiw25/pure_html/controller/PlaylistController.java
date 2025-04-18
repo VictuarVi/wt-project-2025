@@ -1,7 +1,7 @@
 package it.polimi.tiw25.pure_html.controller;
 
 import it.polimi.tiw25.pure_html.DAO.PlaylistDAO;
-import it.polimi.tiw25.pure_html.entities.Playlist;
+import it.polimi.tiw25.pure_html.entities.Track;
 import it.polimi.tiw25.pure_html.entities.User;
 import jakarta.servlet.ServletContext;
 import jakarta.servlet.ServletException;
@@ -24,8 +24,11 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.List;
 
-@WebServlet("/HomePage")
-public class HomepageController extends HttpServlet {
+/**
+ * Generates the tracks associated to a Playlist.
+ */
+@WebServlet("/Playlist")
+public class PlaylistController extends HttpServlet {
     @Serial
     private static final long serialVersionUID = 1L;
     private TemplateEngine templateEngine;
@@ -60,28 +63,32 @@ public class HomepageController extends HttpServlet {
     }
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse res) throws IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         JakartaServletWebApplication webApplication = JakartaServletWebApplication.buildApplication(getServletContext());
-        WebContext ctx = new WebContext(webApplication.buildExchange(req, res), req.getLocale());
+        WebContext ctx = new WebContext(webApplication.buildExchange(req, resp), req.getLocale());
 
         HttpSession s = req.getSession();
         User user = (User) s.getAttribute("user");
+        String playlistTitle = req.getParameter("playlist_title");
 
         PlaylistDAO playlistDAO = new PlaylistDAO(connection);
 
-        List<Playlist> playlists = null;
+        List<Track> playlistTracks = null;
         try {
-            playlists = playlistDAO.getUserPlaylists(user);
+            playlistTracks = playlistDAO.getPlaylistTracks(playlistTitle, user);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
 
-        ctx.setVariable("playlists", playlists);
-        templateEngine.process("home_page.html", ctx, res.getWriter());
+        ctx.setVariable("playlistTitle", playlistTitle);
+        ctx.setVariable("playlistTracks", playlistTracks);
+//        String path = getServletContext().getContextPath() + "/playlist_page";
+        String path = "playlist_page";
+        templateEngine.process(path, ctx, resp.getWriter());
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-        super.doPost(req, res);
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        super.doPost(req, resp);
     }
 }

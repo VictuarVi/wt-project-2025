@@ -2,22 +2,24 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Playlist $name</title>
+    <title th:text="${playlistTitle}">Playlist Title</title>
     <link rel="stylesheet" href="CSS/playlist_page.css" th:href="@{/CSS/playlist_page.css}">
 </head>
 <body>
 <div class="nav-bar">
-    <div class="label-title" th:text="${playlist.name}">PlaylistName</div>
+    <div class="label-title" th:text="${playlistTitle}">PlaylistName</div>
     <div class="spacer"></div>
     <button class="button" th:text="#{playlist_page.addTrack}">Add Track</button>
     <button class="button" th:text="#{playlist_page.removeTrack}">Remove Track</button>
-    <button class="button logout" th:text="#{playlist_page.logout}">Logout</button>
+    <a th:href="@{/Logout}">
+        <button type="submit" class="button logout" th:text="#{playlist_page.logout}">Logout</button>
+    </a>
 </div>
-<div class="songs">
-    <!-- L'utente qua vede TUTTI i suoi brani -->
+<div class="songs" th:remove="all-but-first" th:each="track : ${playlistTracks}">
+    <!-- Five tracks per row of the corresponding playlist -->
     <div class="song">
-        <span class="track-title">TitleTrack</span> <br>
-        <span class="album-title">AlbumTitle</span>
+        <span class="track-title" th:text="${track.title}">TitleTrack</span><br>
+        <span class="album-title" th:text="${track.album_title}">AlbumTitle</span>
     </div>
     <div class="song"></div>
     <div class="song"></div>

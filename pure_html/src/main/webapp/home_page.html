@@ -14,15 +14,16 @@
     <button class="button" th:text="#{home_page.allSongs}">View All Songs</button>
     <button class="button" th:text="#{home_page.addTrack}">Add Track</button>
     <a th:href="@{/Logout}">
-        <button type="submit" class="button logout" th:text="#{home_page.logout}" th:action="@{/Logout}">Logout</button>
+        <button type="submit" class="button logout" th:text="#{home_page.logout}">Logout</button>
     </a>
 </div>
 <div class="playlists" th:remove="all-but-first" th:each="playlist : ${playlists}">
     <!-- Redirects to corresponding playlist page name -->
     <!-- No more than 5 per row -->
-    <button class="playlist playlist-title" type="submit" th:text="${playlist.title}" th:action="@{/Playlist}">
-        PlaylistTitle
-    </button>
+    <form action="Playlist" method="GET">
+        <input class="playlist playlist-title" type="submit" value="PlaylistTitle" th:value="${playlist.title}"
+               name="playlist_title">
+    </form>
     <button class="playlist playlist-title" type="submit">
         PlaylistTitle
     </button>
